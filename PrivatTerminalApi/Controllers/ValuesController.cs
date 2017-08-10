@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PrivatTerminalApi.Models;
+using PrivatTerminalApi.Models.Enities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -15,14 +17,16 @@ namespace PrivatTerminalApi.Controllers
 
         public ValuesController()
         {
-            strings = new List<StringBuilder>();
-            strings.Add(new StringBuilder("value1"));
-            strings.Add(new StringBuilder("value2"));
+			TerminalDb db = new TerminalDb();
+			Payer p = new Payer { Name = "test"};
+			db.Payers.Add(p);
+			db.SaveChanges();
         }
+
         // GET api/values
         public IEnumerable<string> Get()
         {
-            return strings.Select(s => s.ToString()).ToArray<string>();
+            return new List<string>();
         }
 
         // GET api/values/5
