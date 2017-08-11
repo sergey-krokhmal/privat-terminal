@@ -18,7 +18,7 @@ namespace PrivatTerminalApi.Controllers
         public ValuesController()
         {
 			TerminalDb db = new TerminalDb();
-			Payer p = new Payer { Name = "test"};
+            Payer p = new Payer { Name = "test", AccountNumber = "1"};
 			db.Payers.Add(p);
 			db.SaveChanges();
         }

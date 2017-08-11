@@ -6,5 +6,7 @@ namespace PrivatTerminalApi.Models.Enities
 		public int Id { get; set; }
 		[Required]
 		public string Name { get; set; }
+        [Required]
+        public string AccountNumber { get; set; }
 	}
 }
