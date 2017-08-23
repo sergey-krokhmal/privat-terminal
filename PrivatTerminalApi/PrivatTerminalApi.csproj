@@ -49,6 +49,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -139,12 +141,30 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Enities\Payer.cs" />
-    <Compile Include="Models\TerminalDb.cs" />
+    <Compile Include="Models\Advertiser.cs">
+      <DependentUpon>TerminalPays.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PrivatPayment.cs" />
+    <Compile Include="Models\TerminalPays.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TerminalPays.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TerminalPays.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TerminalPays.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TerminalPays.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TerminalPays.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -167,6 +187,23 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <EntityDeploy Include="Models\TerminalPays.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>TerminalPays.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\TerminalPays.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TerminalPays.edmx</DependentUpon>
+      <LastGenOutput>TerminalPays.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\TerminalPays.edmx.diagram">
+      <DependentUpon>TerminalPays.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\TerminalPays.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>TerminalPays.edmx</DependentUpon>
+      <LastGenOutput>TerminalPays.cs</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -196,6 +233,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

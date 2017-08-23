@@ -1,5 +1,4 @@
 ﻿using PrivatTerminalApi.Models;
-using PrivatTerminalApi.Models.Enities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,10 +16,10 @@ namespace PrivatTerminalApi.Controllers
 
         public ValuesController()
         {
-			TerminalDb db = new TerminalDb();
-            Payer p = new Payer { Name = "test", AccountNumber = "1"};
+			/*TerminalDb db = new TerminalDb();
+            Payer p = new Payer { Name = "test", AccountNumber = "1111"};
 			db.Payers.Add(p);
-			db.SaveChanges();
+			db.SaveChanges();*/
         }
 
         // GET api/values
