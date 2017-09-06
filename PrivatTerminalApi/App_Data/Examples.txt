@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Transfer xmlns="http://debt.privatbank.ua/Transfer" interface="Debt" action="Presearch">
+	<Data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Payer">
+		<Unit name="ls" value="490410" />
+	</Data>
+</Transfer>
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Transfer xmlns="http://debt.privatbank.ua/Transfer" interface="Debt" action="Search">
+	<Data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Payer">
+		<Unit name="bill_identifier" value="490409" />
+	</Data>
+</Transfer>
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Transfer xmlns="http://debt.privatbank.ua/Transfer" interface="Debt" action="Check">
+	<Data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Payment" id="1111">
+		<CompanyInfo companyId="1">
+            <CompanyCode>1</CompanyCode>
+            <CompanyName>ООО Издательский дом "Премьер"</CompanyName>
+        </CompanyInfo>
+        <PayerInfo billIdentifier="490409" ls="490409">
+            <Fio>Топов Юрий</Fio>
+            <Phone>0638500434</Phone>
+        </PayerInfo>
+		<TotalSum>100</TotalSum>
+		<CreateTime>2017-08-26T08:00:00.001+03:00</CreateTime>
+		<ServiceGroup>
+			<Service sum="100" serviceCode="101">
+				<CompanyInfo>
+					<CompanyCode>1</CompanyCode>
+                    <CompanyName>ООО Издательский дом "Премьер"</CompanyName>
+				</CompanyInfo>
+				<ServiceName>Размещение объявлений на сайте или в газете "Премьер"</ServiceName>
+                <Destination>Облата услуги "Размещение объявлений на сайте или в газете "Премьер"</Destination>
+                <PayerInfo billIdentifier="490409">
+                    <Fio>Топов Юрий</Fio>
+                    <Phone>0638500434</Phone>
+                </PayerInfo>
+			</Service>
+		</ServiceGroup>
+	</Data>
+</Transfer>
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Transfer xmlns="http://debt.privatbank.ua/Transfer" interface="Debt" action="Pay">
+    <Data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Payment" id="1111">
+        <CompanyInfo  inn="00000000" companyId="1">
+            <CompanyCode>1</CompanyCode>
+            <CompanyName>ООО Издательский дом "Премьер"</CompanyName>
+            <CheckReference>1</CheckReference>
+        </CompanyInfo>
+        <PayerInfo billIdentifier="490409" ls="490409">
+            <Fio>Топов Юрий</Fio>
+            <Phone>0638500434</Phone>
+        </PayerInfo>
+        <TotalSum>100</TotalSum>
+        <CreateTime>2017-08-26T08:00:00.001+03:00</CreateTime>
+        <ConfirmTime>2017-08-27T11:00:00.001+03:00</ConfirmTime>
+        <ServiceGroup>
+            <Service sum="100">
+                <CompanyInfo>
+                    <CheckReference>1</CheckReference>
+                    <CompanyCode>1</CompanyCode>
+                    <CompanyName>ООО Издательский дом "Премьер"</CompanyName>
+                </CompanyInfo>
+                <idinvoice>12345678</idinvoice>
+                <ServiceName>Размещение объявлений на сайте или в газете "Премьер"</ServiceName>
+                <Destination>Облата услуги "Размещение объявлений на сайте или в газете "Премьер"</Destination>
+                <Comissions>
+                    <Commision type="3" summ="0.99"/>
+                    <Commision type="1" summ="0.10"/>
+                </Comissions>
+            </Service>
+        </ServiceGroup>
+    </Data>
+</Transfer>
+
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Transfer xmlns="http://debt.privatbank.ua/Transfer" interface="Debt" action="Cancel">
+    <Data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Payment" id="1111">
+        <CompanyInfo>
+            <CompanyCode>1</CompanyCode>
+            <CompanyName>КП Воддоканал</CompanyName>
+        </CompanyInfo>
+        <PayerInfo billIdentifier="490409" ls="490409">
+            <Fio>Топов Юрий</Fio>
+            <Phone>0638500434</Phone>
+        </PayerInfo>
+        <TotalSum>100</TotalSum>
+        <CreateTime>2017-08-26T08:00:00.001+03:00</CreateTime>
+        <ConfirmTime>2017-08-27T11:00:00.001+03:00</ConfirmTime>
+        <ServiceGroup>
+            <Service sum="100" >
+                <PayerInfo billIdentifier="490409" ls="490409">
+                    <Fio>Топов Юрий</Fio>
+                    <Phone>0638500434</Phone>
+                </PayerInfo>
+                <CompanyInfo>
+                    <CheckReference>1</CheckReference>
+                    <CompanyCode>1</CompanyCode>
+                    <CompanyName>ООО Издательский дом "Премьер"</CompanyName>
+                </CompanyInfo>
+                <idinvoice>123456789</idinvoice>
+                <ServiceName>Размещение объявлений на сайте или в газете "Премьер"</ServiceName>
+                <Destination>Облата услуги "Размещение объявлений на сайте или в газете "Премьер"</Destination>
+            </Service>
+        </ServiceGroup>
+    </Data>
+</Transfer>
+
+
