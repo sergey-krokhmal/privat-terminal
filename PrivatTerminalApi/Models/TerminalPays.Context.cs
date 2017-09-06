@@ -26,5 +26,7 @@ namespace PrivatTerminalApi.Models
         }
     
         public virtual DbSet<Advertiser> Advertisers { get; set; }
+        public virtual DbSet<Pay> Pays { get; set; }
+        public virtual DbSet<StatusPay> StatusPays { get; set; }
     }
 }

@@ -149,7 +149,14 @@
     <Compile Include="Models\Advertiser.cs">
       <DependentUpon>TerminalPays.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Pay.cs">
+      <DependentUpon>TerminalPays.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\PrivatPayment.cs" />
+    <Compile Include="Models\StatusPay.cs">
+      <DependentUpon>TerminalPays.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TerminalPayment.cs" />
     <Compile Include="Models\TerminalPays.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

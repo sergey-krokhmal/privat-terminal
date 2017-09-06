@@ -12,25 +12,20 @@ namespace PrivatTerminalApi.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Advertiser
+    public partial class Pay
     {
-        public Advertiser()
-        {
-            this.Pays = new HashSet<Pay>();
-        }
-    
         public int Id { get; set; }
-        public string Login { get; set; }
-        public string Name { get; set; }
-        public string Sname { get; set; }
-        public Nullable<int> AgencyId { get; set; }
-        public Nullable<System.Guid> MembershipId { get; set; }
-        public string Phone { get; set; }
-        public string Patronymic { get; set; }
-        public string Icq { get; set; }
+        public System.DateTime DateCreate { get; set; }
+        public Nullable<System.DateTime> DateConfirm { get; set; }
         public string uniqueNumber { get; set; }
-        public int PacketLimit { get; set; }
+        public int PaymentId { get; set; }
+        public decimal Sum { get; set; }
+        public decimal Comission { get; set; }
+        public string PaymentNumber { get; set; }
+        public int AdvertiserId { get; set; }
+        public int StatusId { get; set; }
     
-        public virtual ICollection<Pay> Pays { get; set; }
+        public virtual Advertiser Advertiser { get; set; }
+        public virtual StatusPay StatusPay { get; set; }
     }
 }

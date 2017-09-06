@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище TerminalPaysModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище TerminalPaysModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Advertiser">
           <Key>
             <PropertyRef Name="Id" />
@@ -21,11 +21,67 @@
           <Property Name="uniqueNumber" Type="nvarchar(max)" />
           <Property Name="PacketLimit" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Pays">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DateCreate" Type="datetime2" Precision="7" Nullable="false" />
+          <Property Name="DateConfirm" Type="datetime2" Precision="7" />
+          <Property Name="uniqueNumber" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="PaymentId" Type="int" Nullable="false" />
+          <Property Name="Sum" Type="money" Nullable="false" />
+          <Property Name="Comission" Type="money" Nullable="false" />
+          <Property Name="PaymentNumber" Type="nvarchar(max)" />
+          <Property Name="AdvertiserId" Type="int" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StatusPay">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_Pays_Advertiser">
+          <End Role="Advertiser" Type="Self.Advertiser" Multiplicity="1" />
+          <End Role="Pays" Type="Self.Pays" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Advertiser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pays">
+              <PropertyRef Name="AdvertiserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pays_Status">
+          <End Role="StatusPay" Type="Self.StatusPay" Multiplicity="1" />
+          <End Role="Pays" Type="Self.Pays" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusPay">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pays">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Хранилище TerminalPaysModelContainer">
           <EntitySet Name="Advertiser" EntityType="Self.Advertiser" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pays" EntityType="Self.Pays" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="StatusPay" EntityType="Self.StatusPay" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Pays_Advertiser" Association="Self.FK_Pays_Advertiser">
+            <End Role="Advertiser" EntitySet="Advertiser" />
+            <End Role="Pays" EntitySet="Pays" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pays_Status" Association="Self.FK_Pays_Status">
+            <End Role="StatusPay" EntitySet="StatusPay" />
+            <End Role="Pays" EntitySet="Pays" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TerminalPaysModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -44,10 +100,71 @@
           <Property Name="Icq" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="uniqueNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="PacketLimit" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Pays" Relationship="TerminalPaysModel.FK_Pays_Advertiser" FromRole="Advertiser" ToRole="Pay" />
         </EntityType>
         <EntityContainer Name="TerminalPays" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Advertisers" EntityType="Self.Advertiser" />
+          <EntitySet Name="Pays" EntityType="TerminalPaysModel.Pay" />
+          <AssociationSet Name="FK_Pays_Advertiser" Association="TerminalPaysModel.FK_Pays_Advertiser">
+            <End Role="Advertiser" EntitySet="Advertisers" />
+            <End Role="Pay" EntitySet="Pays" />
+          </AssociationSet>
+          <EntitySet Name="StatusPays" EntityType="TerminalPaysModel.StatusPay" />
+          <AssociationSet Name="FK_Pays_Status1" Association="TerminalPaysModel.FK_Pays_Status1">
+            <End Role="StatusPay" EntitySet="StatusPays" />
+            <End Role="Pay" EntitySet="Pays" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Pay">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DateCreate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="DateConfirm" Type="DateTime" Precision="7" />
+          <Property Name="uniqueNumber" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PaymentId" Type="Int32" Nullable="false" />
+          <Property Name="Sum" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Comission" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="PaymentNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AdvertiserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Advertiser" Relationship="TerminalPaysModel.FK_Pays_Advertiser" FromRole="Pay" ToRole="Advertiser" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="StatusPay" Relationship="TerminalPaysModel.FK_Pays_Status1" FromRole="Pay" ToRole="StatusPay" />
+        </EntityType>
+        <Association Name="FK_Pays_Advertiser">
+          <End Type="TerminalPaysModel.Advertiser" Role="Advertiser" Multiplicity="1" />
+          <End Type="TerminalPaysModel.Pay" Role="Pay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Advertiser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pay">
+              <PropertyRef Name="AdvertiserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="StatusPay">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pays" Relationship="TerminalPaysModel.FK_Pays_Status1" FromRole="StatusPay" ToRole="Pay" />
+        </EntityType>
+        <Association Name="FK_Pays_Status1">
+          <End Type="TerminalPaysModel.StatusPay" Role="StatusPay" Multiplicity="1" />
+          <End Type="TerminalPaysModel.Pay" Role="Pay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StatusPay">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Pay">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -68,6 +185,31 @@
                 <ScalarProperty Name="Icq" ColumnName="Icq" />
                 <ScalarProperty Name="uniqueNumber" ColumnName="uniqueNumber" />
                 <ScalarProperty Name="PacketLimit" ColumnName="PacketLimit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pays">
+            <EntityTypeMapping TypeName="TerminalPaysModel.Pay">
+              <MappingFragment StoreEntitySet="Pays">
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="AdvertiserId" ColumnName="AdvertiserId" />
+                <ScalarProperty Name="PaymentNumber" ColumnName="PaymentNumber" />
+                <ScalarProperty Name="Comission" ColumnName="Comission" />
+                <ScalarProperty Name="Sum" ColumnName="Sum" />
+                <ScalarProperty Name="PaymentId" ColumnName="PaymentId" />
+                <ScalarProperty Name="uniqueNumber" ColumnName="uniqueNumber" />
+                <ScalarProperty Name="DateConfirm" ColumnName="DateConfirm" />
+                <ScalarProperty Name="DateCreate" ColumnName="DateCreate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StatusPays">
+            <EntityTypeMapping TypeName="TerminalPaysModel.StatusPay">
+              <MappingFragment StoreEntitySet="StatusPay">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
